@@ -1,0 +1,7 @@
+- name: Upload Datastax Repo
+  template: src={{ datastax_repo }} dest={{ datastax_repo_file }} mode=0644
+
+- apt_key:
+    url: "{{ datastax_repo_key }}"
+    state: present
+

@@ -1,0 +1,25 @@
+---
+cluster_name: testcluster
+dse_version: '5.0.8-1'
+dserepouser: 'datastax%40google.com'
+dserepopass: '8GdeeVT2s7zi'
+dsehost: 'rpm.datastax.com'
+opscenter_dc: 'opscenter'
+admin_password: 'admin'
+data_disks_filesystem: xfs
+
+dc_name: DC1
+rack_name: RAC1
+
+options:
+  workloads:
+    - search
+    - spark
+  tokens: 64
+  group: 'dse-sa-dfw'
+  data_disks_devices: []
+  cassandra_base_path: "/var/lib/cassandra"
+  listen_interface: 'eth1'
+  broadcast_interface: 'eth0'
+  rpc_interface: 'eth0'
+

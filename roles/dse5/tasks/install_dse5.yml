@@ -1,0 +1,26 @@
+- name: Install DSE packages (apt)
+  apt:
+    name: "{{ item }}={{ dse_version }}"
+    update_cache: yes
+    state: present
+  with_items:
+    - dse-full
+    - dse
+    - dse-hive
+    - dse-pig
+    - dse-demos
+    - dse-libsolr
+    - dse-libtomcat
+    - dse-libsqoop
+    - dse-liblog4j
+    - dse-libmahout
+    - dse-libhadoop-native
+    - dse-libcassandra
+    - dse-libhive
+    - dse-libpig
+    - dse-libhadoop
+    - dse-libspark
+    - dse-libhadoop2-client-native
+    - dse-libgraph
+    - dse-libhadoop2-client
+

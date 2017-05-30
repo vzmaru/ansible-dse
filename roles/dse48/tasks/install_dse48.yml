@@ -1,0 +1,11 @@
+- name: Install DSE packages (yum)
+  yum:
+    name: "{{ item }}"
+    update_cache: yes
+    state: installed
+  with_items:
+    - dse-full-{{ dse_version }}
+#  notify: Reload systemd
+
+#- meta: flush_handlers
+

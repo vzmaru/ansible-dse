@@ -1,0 +1,10 @@
+- name: Add Apt Repo
+  apt_repository: repo='ppa:openjdk-r/ppa' state=present
+
+- name: Install Open JDK
+  apt:
+    pkg: openjdk-8-jdk
+    update_cache: yes
+    state: present
+#  when: ansible_os_family == "Ubuntu"
+

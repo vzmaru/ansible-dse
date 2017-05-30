@@ -1,0 +1,29 @@
+---
+- name: Load OS specific variables
+  include_vars: ../vars/ubuntu.yml
+
+- name: Install Required PKG
+  include: install_prereq.yml
+
+- name: Install Java
+  include: install_java.yml
+
+- name: Add DSE repo
+  include: add_dse_repo.yml
+  tags:
+    - packages
+
+- name: Install DSE
+  include: install_dse5.yml
+  tags:
+    - packages
+#  notify: Reload systemd
+
+- meta: flush_handlers
+
+- name: Update cassandra settings
+  include: update_dse_settings.yml
+  tags:
+    - configuration
+  notify: Restart DSE
+

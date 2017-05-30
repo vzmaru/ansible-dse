@@ -1,0 +1,25 @@
+---
+- name: build an image
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: start the container
+      docker_container:
+        name: dse-master
+        image: centos:7
+        ports: 7080:7080
+        state: started
+        command: sleep 3600
+
+    - name: make a host
+      add_host:
+        name: dse-master
+        ansible_connection: docker
+
+- name: do things
+  hosts: dse-master
+  gather_facts: false
+  roles:
+    - role: dse48
+

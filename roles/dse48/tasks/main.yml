@@ -1,0 +1,18 @@
+---
+- name: Load OS specific variables
+  include_vars: ../vars/redhat7.yml
+
+- name: Install Java
+  include: install_java.yml
+
+- name: Add DSE repo
+  include: add_dse_repo.yml
+
+- name: Install DSE
+  include: install_dse48.yml
+
+- name: Update cassandra settings
+  include: update_dse_settings.yml
+  tags:
+    - configuration
+

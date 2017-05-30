@@ -1,0 +1,52 @@
+---
+- name: build an image
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: start the container
+      docker_container:
+        name: dse-master
+        image: ubuntu:14.04
+        ports: 7080:7080
+        state: started
+        command: sleep 7200
+
+    - name: start the container
+      docker_container:
+        name: dse-node-1
+        image: ubuntu:14.04
+        ports: 7081:7081
+        state: started
+        command: sleep 7200
+
+    - name: make a host
+      add_host:
+        name: dse-master
+        groups: master
+        ansible_connection: docker
+
+    - name: make a host
+      add_host:
+        name: dse-node-1
+        groups: nodes
+        ansible_connection: docker
+
+- name: Install python
+  hosts: dse-master,dse-node-1
+  gather_facts: false
+  tasks:
+    - name: install python 2
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+- name: do things
+  hosts: dse-master,dse-node-1
+  gather_facts: true
+  roles:
+    - role: dse5
+      dse_config:
+        data_file_directories:
+          - "{{ cassandra_base_path | default('/var/lib/cassandra') }}/data"
+        commitlog_directory: "{{ cassandra_base_path | default('/var/lib/cassandra') }}/commitlog"
+        saved_caches_directory: "{{ cassandra_base_path | default('/var/lib/cassandra') }}/saved_caches"
+

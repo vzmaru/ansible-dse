@@ -1,0 +1,14 @@
+- name: install python 2
+  raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+- name: Install Required PKG
+  apt: name={{item}} state=installed
+  with_items: "{{ req_pkg }}"
+
+#  apt:
+#    name: "{{ item }}"
+#    update_cache: yes
+#    state: present
+#    with-items: "{{ req_pkg }}"
+#  when: ansible_os_family == "Ubuntu"
+
